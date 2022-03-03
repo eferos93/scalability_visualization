@@ -1,6 +1,6 @@
 library(tidyverse)
 
-times <- read.csv("times.csv")
+times <- read.csv("scalability/times.csv")
 t1 <- 52346
 speedup <-
   times %>%
