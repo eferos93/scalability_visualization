@@ -29,4 +29,4 @@ ggplot(speedup, aes(nodes, mean_speedup)) +
   geom_line(color = "orange") +
   geom_point(color = "orange") +
   geom_errorbar(aes(x=nodes, y=sd_speedup, ymin=mean_speedup-sd_speedup, ymax=mean_speedup+sd_speedup)) +
-  coord_cartesian(ylim = c(1.0, 2.0))
+  coord_cartesian(ylim = c(1.0, 1.75))
