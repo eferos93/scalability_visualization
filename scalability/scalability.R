@@ -1,14 +1,21 @@
 library(tidyverse)
 
 times <- read.csv("scalability/times.csv")
-t1 <- 52346
-speedup <-
-  times %>%
-    mutate(speedup = t1/exec_time_sec)
-ggplot(times, aes(nodes, exec_time_sec)) +
-  geom_line()
 
-ggplot(speedup, aes(nodes, speedup)) +
+t1s <- times %>%
+  filter(nodes == 1) %>%
+  select(exec_time_sec) %>%
+  rename(t1 = exec_time_sec)
+
+speedup <- crossing(t1s, times) %>%
+  mutate(speedup = t1/exec_time_sec) %>%
+  group_by(nodes) %>%
+  summarise(
+    mean_speedup = mean(speedup),
+    sd_speedup = sd(speedup)
+  )
+
+ggplot(speedup, aes(nodes, mean_speedup)) +
   theme_bw() +
   theme(
     plot.title = element_text(face = "bold", size = 12),
@@ -20,4 +27,6 @@ ggplot(speedup, aes(nodes, speedup)) +
     title = "K8s genomics pipeline scalability"
   ) +
   geom_line(color = "orange") +
-  geom_point(color = "orange")
+  geom_point(color = "orange") +
+  geom_errorbar(aes(x=nodes, y=sd_speedup, ymin=mean_speedup-sd_speedup, ymax=mean_speedup+sd_speedup)) +
+  coord_cartesian(ylim = c(1.0, 2.0))
