@@ -1,6 +1,5 @@
 library(tidyverse)
-
-plot_scalability <- function (dataframe) {
+get_speedup <- function (dataframe) {
   t1s <- dataframe %>%
     filter(nodes == 1) %>%
     select(exec_time_sec) %>%
@@ -13,8 +12,10 @@ plot_scalability <- function (dataframe) {
       mean_speedup = mean(speedup),
       sd_speedup = sd(speedup)
     )
-
-  ggplot(speedup, aes(nodes, mean_speedup)) +
+  return(speedup)
+}
+plot_scalability <- function (speedup) {
+  p <- ggplot(speedup, aes(nodes, mean_speedup)) +
     theme_bw() +
     theme(
       plot.title = element_text(face = "bold", size = 12),
@@ -34,9 +35,12 @@ plot_scalability <- function (dataframe) {
                   color = "blue"
     ) +
     coord_cartesian(ylim = c(1.0, 3.0))
+  return(p)
 }
 times <- read.csv("scalability/times.csv")
-plot_scalability(times)
+pipeline_speedup <- get_speedup(times)
+plot_scalability(pipeline_speedup)
 
 fastqc_times <- read.csv("scalability/fastqc_times.csv")
-plot_scalability(fastqc_times)
+fastqc_speedup <- get_speedup(fastqc_times)
+plot_scalability(fastqc_speedup)
