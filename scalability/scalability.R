@@ -60,9 +60,9 @@ ggplot(t, aes(nodes, mean_speedup)) +
   facet_wrap(~ type) +
   theme_bw() +
   theme(
-    plot.title = element_text(face = "bold", size = 12),
-    axis.ticks = element_line(colour = "grey70", size = 0.2),
-    panel.grid.major = element_line(colour = "grey70", size = 0.2),
+    plot.title = element_text(face = "bold", size = 16),
+    axis.ticks = element_line(colour = "grey70", size = 0.5),
+    panel.grid.major = element_line(colour = "grey70", size = 0.5),
     panel.grid.minor = element_blank()
   ) +
   labs(
@@ -83,12 +83,17 @@ ggplot(t, aes(nodes, mean_speedup)) +
 
 
 ggplot(t, aes(nodes, mean_speedup, group = type, color = type)) +
-  theme_bw() +
+  theme_hc() +
   theme(
-    plot.title = element_text(face = "bold", size = 12),
-    axis.ticks = element_line(colour = "grey70", size = 0.2),
-    panel.grid.major = element_line(colour = "grey70", size = 0.2),
-    panel.grid.minor = element_blank()
+    plot.title = element_text(face = "bold", size = 23),
+    axis.ticks = element_line(colour = "grey70", size = 1),
+    panel.grid.major = element_line(colour = "grey70", size = 1),
+    panel.grid.minor = element_blank(),
+    axis.text = element_text(size = 13),
+    axis.title = element_text(size = 18),
+    legend.text = element_text(size = 15),
+    legend.title = element_blank(),
+    legend.key.size = unit(1, 'cm')
   ) +
   labs(
     title = "K8s genomics pipeline scalability",
