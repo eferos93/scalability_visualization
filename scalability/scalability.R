@@ -1,4 +1,5 @@
 library(tidyverse)
+library(ggthemes)
 get_speedup <- function (dataframe) {
   t1s <- dataframe %>%
     filter(nodes == 1) %>%
@@ -85,15 +86,15 @@ ggplot(t, aes(nodes, mean_speedup)) +
 ggplot(t, aes(nodes, mean_speedup, group = type, color = type)) +
   theme_hc() +
   theme(
-    plot.title = element_text(face = "bold", size = 23),
-    axis.ticks = element_line(colour = "grey70", size = 1),
-    panel.grid.major = element_line(colour = "grey70", size = 1),
+    plot.title = element_text(face = "bold", size = 28),
+    axis.ticks = element_line(colour = "grey70", size = 1.5),
+    panel.grid.major = element_line(colour = "grey70", size = 1.5),
     panel.grid.minor = element_blank(),
-    axis.text = element_text(size = 13),
-    axis.title = element_text(size = 18),
-    legend.text = element_text(size = 15),
+    axis.text = element_text(size = 15),
+    axis.title = element_text(size = 20),
+    legend.text = element_text(size = 17),
     legend.title = element_blank(),
-    legend.key.size = unit(1, 'cm')
+    legend.key.size = unit(1.25, 'cm')
   ) +
   labs(
     title = "K8s genomics pipeline scalability",
